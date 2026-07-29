@@ -207,6 +207,24 @@ footer .social-links a:hover {
     color: #ffffff;
 }
 
+.social-links {
+  margin-top: 15px;
+}
+
+.social-links a {
+  margin: 0 10px;
+}
+
+.social-icon {
+  width: 30px;
+  height: 30px;
+  transition: transform 0.3s ease;
+}
+
+.social-icon:hover {
+  transform: scale(1.2);
+}
+
 /* 首页 Banner */
 .banner {
     position: relative;
@@ -335,6 +353,43 @@ footer .social-links a:hover {
 .service-card img {
   width: 60px;
   margin-bottom: 10px;
+}
+
+.testimonials {
+  max-width: 900px;
+  margin: 3rem auto;
+  text-align: center;
+}
+
+.testimonials h2 {
+  font-size: 2rem;
+  color: #2c3e50;
+  margin-bottom: 2rem;
+}
+
+.testimonial-grid {
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+  flex-wrap: wrap;
+}
+
+.testimonial-card {
+  background: #fff;
+  padding: 20px;
+  border-radius: 10px;
+  width: 250px;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+}
+
+.testimonial-card p {
+  font-style: italic;
+  color: #555;
+}
+
+.testimonial-card h4 {
+  margin-top: 10px;
+  color: #f39c12;
 }
 
 /* Contact Form Section */
