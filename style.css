@@ -280,31 +280,58 @@ footer .social-links a:hover {
     margin-bottom: 1.5rem;
 }
 
-.slideshow-container {
-  max-width: 600px;
+.carousel {
   position: relative;
+  width: 600px;
+  height: 300px;
   margin: auto;
+  perspective: 1000px; /* 3D透视效果 */
 }
 
-.slide {
-  display: none;
-}
-
-.slide img {
+.carousel-container {
   width: 100%;
+  height: 100%;
+  position: absolute;
+  transform-style: preserve-3d;
+  transition: transform 1s;
+}
+
+.carousel-item {
+  position: absolute;
+  width: 250px;
+  height: 200px;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.carousel-item img {
+  width: 100%;
+  height: 100%;
   border-radius: 10px;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.3);
 }
 
-/* 淡入淡出效果 */
-.fade {
-  animation-name: fade;
-  animation-duration: 1.5s;
+/* 箭头按钮 */
+.prev, .next {
+  cursor: pointer;
+  position: absolute;
+  top: 50%;
+  padding: 16px;
+  color: #fff;
+  font-size: 24px;
+  font-weight: bold;
+  transition: 0.3s;
+  user-select: none;
 }
 
-@keyframes fade {
-  from {opacity: .4}
-  to {opacity: 1}
+.prev { left: 0; }
+.next { right: 0; }
+
+.prev:hover, .next:hover {
+  color: #ff7043;
 }
+
 
 /*Hero*/
 .hero {
