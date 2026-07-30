@@ -293,8 +293,8 @@ footer .social-links a:hover {
 }
 
 .carousel-item {
-  min-width: 400px; /* 每张图宽度比容器小一点 */
-  margin: 0 10px;
+  min-width: 600px; /* 每张图宽度 */
+  transition: transform 0.5s ease;
 }
 
 .carousel-item img {
@@ -317,8 +317,13 @@ footer .social-links a:hover {
   border-radius: 50%;
 }
 
-.carousel-btn.prev { left: 10px; }
-.carousel-btn.next { right: 10px; }
+.carousel-btn.prev { 
+    left: 10px; 
+}
+
+.carousel-btn.next { 
+    right: 10px; 
+}
 
 .carousel-btn:hover {
   background: #ff7043;
