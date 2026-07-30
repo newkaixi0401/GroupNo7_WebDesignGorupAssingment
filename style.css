@@ -284,7 +284,7 @@ footer .social-links a:hover {
   position: relative;
   width: 600px;
   margin: auto;
-  overflow: hidden;
+  overflow: visible; /* 改成 visible，让旁边的图能露出来 */
 }
 
 .carousel-track {
@@ -293,8 +293,8 @@ footer .social-links a:hover {
 }
 
 .carousel-item {
-  min-width: 600px; /* 每张图宽度 */
-  transition: transform 0.5s ease;
+  min-width: 400px; /* 每张图缩小一点 */
+  margin: 0 10px;   /* 给左右留空隙 */
 }
 
 .carousel-item img {
