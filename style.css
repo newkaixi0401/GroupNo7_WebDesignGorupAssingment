@@ -280,25 +280,33 @@ footer .social-links a:hover {
     margin-bottom: 1.5rem;
 }
 
-.featured .product-grid {
-    display: flex;
-    justify-content: center;
-    gap: 20px;
+.slideshow-container {
+  max-width: 600px;
+  position: relative;
+  margin: auto;
 }
 
-.featured .product-grid img {
-    width: 250px;
-    height: 200px;
-    object-fit: cover;
-    border-radius: 10px;
-    box-shadow: 0 4px 10px rgba(0,0,0,0.1);
-    transition: transform 0.3s ease;
+.slide {
+  display: none;
 }
 
-.featured .product-grid img:hover {
-    transform: scale(1.05);
+.slide img {
+  width: 100%;
+  border-radius: 10px;
 }
 
+/* 淡入淡出效果 */
+.fade {
+  animation-name: fade;
+  animation-duration: 1.5s;
+}
+
+@keyframes fade {
+  from {opacity: .4}
+  to {opacity: 1}
+}
+
+/*Hero*/
 .hero {
   position: relative;
   text-align: center;
