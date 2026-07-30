@@ -283,45 +283,48 @@ footer .social-links a:hover {
 .carousel {
   position: relative;
   width: 600px;
+  height: 300px;
   margin: auto;
-  overflow: hidden;
+  perspective: 1000px; /* 3D透视效果 */
 }
 
-.carousel-track {
-  display: flex;
-  transition: transform 0.5s ease;
+.carousel-container {
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  transform-style: preserve-3d;
+  transition: transform 1s;
 }
 
 .carousel-item {
-  min-width: 600px; /* 每张图宽度 */
-  transition: transform 0.5s ease;
+  position: absolute;
+  width: 250px;
+  height: 200px;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
 }
 
 .carousel-item img {
   width: 100%;
+  height: 100%;
   border-radius: 10px;
   box-shadow: 0 4px 10px rgba(0,0,0,0.3);
 }
 
 /* 箭头按钮 */
-.carousel-btn {
+.prev, .next {
+  cursor: pointer;
   position: absolute;
   top: 50%;
-  transform: translateY(-50%);
-  background: rgba(62,39,35,0.7);
+  padding: 16px;
+
   color: #fff;
-  border: none;
+
   font-size: 24px;
-  padding: 10px;
-  cursor: pointer;
-  border-radius: 50%;
-}
-
-.carousel-btn.prev { left: 10px; }
-.carousel-btn.next { right: 10px; }
-
-.carousel-btn:hover {
-  background: #ff7043;
+  font-weight: bold;
+  transition: 0.3s;
+  user-select: none;
 }
 
 .prev { left: 0; }
