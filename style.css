@@ -408,7 +408,7 @@ footer .social-links a:hover {
 
 .testimonial-card h4 {
   margin-top: 10px;
-  color: #f39c12;
+  color: #ff7043;
 }
 
 /* Contact Form Section */
@@ -460,7 +460,7 @@ footer .social-links a:hover {
 }
 
 .contact-form button:hover {
-    background-color: #f39c12;
+    background-color: #ff7043;
 }
 
 #successMessage {
