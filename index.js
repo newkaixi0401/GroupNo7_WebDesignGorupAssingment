@@ -11,38 +11,45 @@ let autoPlayTimer = null;
 let isDragging = false;
 let startX = 0;
 let currentAngle = 0;
-let dragThreshold = 50; // 拖动多少像素触发切换
+let dragThreshold = 40;
 
 // 初始化每张卡片在3D圆环上的位置
 function initCarousel() {
     items.forEach((item, index) => {
-        item.style.transform = `translate(-50%, -50%) rotateY(${index * rotateAngle}deg) translateZ(400px)`;
+        // 顺时针布局：让索引递增时往顺时针方向走
+        item.style.transform = `translate(-50%, -50%) rotateY(${-index * rotateAngle}deg) translateZ(350px)`;
     });
     updateCardStyles();
 }
 
-// 核心：动态计算并更新卡片的显形与半透明状态
+// 动态控制中间 Main 和两边 Side 的样式、尺寸与透明度
 function updateCardStyles() {
     items.forEach((item, index) => {
-        // 计算当前卡片相对于正中心卡片的偏移量
         let itemAngle = (index * rotateAngle + angle) % 360;
         if (itemAngle < 0) itemAngle += 360;
 
-        // 如果在正前方（角度接近 0 或 360），完全不透明并高清显示
-        // 如果在两边或背面，降低透明度形成半透明待机效果
-        if (itemAngle < 10 || itemAngle > 350) {
+        // 统一处理成以 0 度（正前方）为中心的偏移范围 [-180, 180]
+        let diff = itemAngle;
+        if (diff > 180) diff -= 360;
+
+        // 根据距离正前方的角度来动态调整卡片大小和透明度
+        if (Math.abs(diff) < 45) {
+            // 【Main 中间主卡片】：放大、完全不透明、最高层级
+            item.style.transform = `translate(-50%, -50%) rotateY(${-index * rotateAngle + angle}deg) translateZ(350px) scale(1.15)`;
             item.style.opacity = "1";
+            item.style.zIndex = "10";
             item.style.filter = "blur(0px)";
-            item.style.pointerEvents = "auto";
-        } else if (itemAngle > 80 && itemAngle < 280) {
+        } else if (Math.abs(diff) > 135) {
             // 背面隐藏
+            item.style.transform = `translate(-50%, -50%) rotateY(${-index * rotateAngle + angle}deg) translateZ(350px) scale(0.8)`;
             item.style.opacity = "0";
-            item.style.pointerEvents = "none";
+            item.style.zIndex = "1";
         } else {
-            // 两边侧面：半透明待机
-            item.style.opacity = "0.4";
-            item.style.filter = "blur(1px)";
-            item.style.pointerEvents = "auto";
+            // 【Side 两边次要卡片】：缩小、半透明待机
+            item.style.transform = `translate(-50%, -50%) rotateY(${-index * rotateAngle + angle}deg) translateZ(350px) scale(0.85)`;
+            item.style.opacity = "0.45";
+            item.style.zIndex = "5";
+            item.style.filter = "blur(0.5px)";
         }
     });
 }
@@ -50,41 +57,46 @@ function updateCardStyles() {
 // 旋转到指定索引
 function rotateToIndex(index) {
     currentIndex = index;
-    angle = -currentIndex * rotateAngle;
+    // 顺时针旋转逻辑
+    angle = currentIndex * rotateAngle;
     container.style.transform = `rotateY(${angle}deg)`;
     updateCardStyles();
 }
 
-// 下一张
+// 顺时针下一张
 function nextSlide() {
     currentIndex = (currentIndex + 1) % itemCount;
     rotateToIndex(currentIndex);
 }
 
-// 启动慢速自动轮播（每 4 秒切一次，速度更柔和）
+// 加快自动轮播速度（改用更短的时间间隔，比如 2.5 秒切一次）
 function startAutoPlay() {
-    autoPlayTimer = setInterval(nextSlide, 4000);
+    autoPlayTimer = setInterval(nextSlide, 2500);
 }
 
 function stopAutoPlay() {
     clearInterval(autoPlayTimer);
 }
 
-// --- 鼠标 / 触控拖拽逻辑 ---
+// --- 鼠标 / 触控拖拽交互逻辑 ---
 const carouselEl = document.getElementById("carousel");
 
 carouselEl.addEventListener("mousedown", (e) => {
     isDragging = true;
     startX = e.clientX;
     currentAngle = angle;
-    stopAutoPlay(); // 用户操作时暂停自动轮播
+    stopFileAutoPlay();
 });
+
+function stopFileAutoPlay() {
+    clearInterval(autoPlayTimer);
+}
 
 window.addEventListener("mousemove", (e) => {
     if (!isDragging) return;
     const deltaX = e.clientX - startX;
-    // 根据拖动距离实时改变旋转角度
-    angle = currentAngle + (deltaX / 4);
+    // 拖拽时跟随鼠标顺时针/逆时针滑动
+    angle = currentAngle + (deltaX / 3);
     container.style.transform = `rotateY(${angle}deg)`;
     updateCardStyles();
 });
@@ -94,7 +106,6 @@ window.addEventListener("mouseup", (e) => {
     isDragging = false;
     const deltaX = e.clientX - startX;
 
-    // 如果拖动距离超过阈值，则切换到上一张或下一张
     if (Math.abs(deltaX) > dragThreshold) {
         if (deltaX > 0) {
             currentIndex = (currentIndex - 1 + itemCount) % itemCount;
@@ -103,21 +114,21 @@ window.addEventListener("mouseup", (e) => {
         }
     }
     rotateToIndex(currentIndex);
-    startAutoPlay(); // 恢复自动轮播
+    startAutoPlay();
 });
 
-// 手机端触摸支持
+// 移动端 Touch 支持
 carouselEl.addEventListener("touchstart", (e) => {
     isDragging = true;
     startX = e.touches[0].clientX;
     currentAngle = angle;
-    stopAutoPlay();
+    stopFileAutoPlay();
 });
 
 window.addEventListener("touchmove", (e) => {
     if (!isDragging) return;
     const deltaX = e.touches[0].clientX - startX;
-    angle = currentAngle + (deltaX / 4);
+    angle = currentAngle + (deltaX / 3);
     container.style.transform = `rotateY(${angle}deg)`;
     updateCardStyles();
 });
@@ -125,12 +136,15 @@ window.addEventListener("touchmove", (e) => {
 window.addEventListener("touchend", (e) => {
     if (!isDragging) return;
     isDragging = false;
-    // 简化处理，触控结束后平滑对齐当前最近的一张
-    const targetIndex = Math.round(-angle / rotateAngle) % itemCount;
-    currentIndex = targetIndex < 0 ? targetIndex + itemCount : targetIndex;
+    const targetIndex = Math.round(angle / rotateAngle) % itemCount;
+    currentIndex = targetIndex < 0 ? (targetIndex + itemCount) % itemCount : targetIndex;
     rotateToIndex(currentIndex);
     startAutoPlay();
 });
+
+// 初始化
+initCarousel();
+startAutoPlay();
 
 // 初始化执行
 initCarousel();
