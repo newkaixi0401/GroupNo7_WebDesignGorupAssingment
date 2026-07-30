@@ -1,19 +1,29 @@
-let angle = 0;
-const items = document.querySelectorAll(".carousel-item");
-const container = document.querySelector(".carousel-container");
-const itemCount = items.length;
-const rotateAngle = 360 / itemCount;
+const track = document.querySelector('.carousel-track');
+const items = document.querySelectorAll('.carousel-item');
+const prevBtn = document.querySelector('.carousel-btn.prev');
+const nextBtn = document.querySelector('.carousel-btn.next');
 
-// 初始化位置
-items.forEach((item, index) => {
-  item.style.transform = `rotateY(${index * rotateAngle}deg) translateZ(300px)`;
-});
+let currentIndex = 0;
 
-function rotateCarousel(direction) {
-  angle += direction * rotateAngle;
-  container.style.transform = `rotateY(${angle}deg)`;
+function updateCarousel() {
+  const offset = -currentIndex * 600; // 每张图宽度
+  track.style.transform = `translateX(${offset}px)`;
 }
 
-// 初始化执行
-updateCarousel();
-startAutoPlay();
+// 下一张
+nextBtn.addEventListener('click', () => {
+  currentIndex = (currentIndex + 1) % items.length;
+  updateCarousel();
+});
+
+// 上一张
+prevBtn.addEventListener('click', () => {
+  currentIndex = (currentIndex - 1 + items.length) % items.length;
+  updateCarousel();
+});
+
+// 自动播放（可选）
+setInterval(() => {
+  currentIndex = (currentIndex + 1) % items.length;
+  updateCarousel();
+}, 5000); // 每5秒切换
