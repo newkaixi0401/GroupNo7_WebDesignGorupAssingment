@@ -280,15 +280,14 @@ footer .social-links a:hover {
     margin-bottom: 1.5rem;
 }
 
-/* 放大并优化轮播区域 */
 .carousel {
     position: relative;
-    width: 800px; /* 增大整体宽度 */
-    height: 420px; /* 增大整体高度 */
+    width: 1000px; /* 稍微加宽容器，给两侧卡片留出空间 */
+    height: 420px;
     margin: 2rem auto;
     perspective: 1200px;
-    overflow: hidden; /* 隐藏溢出部分，保证卡片整洁 */
-    cursor: grab; /* 提示用户可以拖拽 */
+    /* 注意：这里删掉了 overflow: hidden; 否则两侧的卡片会被切掉 */
+    cursor: grab;
     user-select: none;
 }
 
@@ -301,20 +300,17 @@ footer .social-links a:hover {
     height: 100%;
     position: absolute;
     transform-style: preserve-3d;
-    /* 让过渡更加平滑丝滑 */
-    transition: transform 0.8s cubic-bezier(0.25, 1, 0.5, 1); 
+    transition: transform 0.8s cubic-bezier(0.25, 1, 0.5, 1);
 }
 
-/* 调整卡片尺寸使其更大 */
 .carousel-item {
     position: absolute;
-    width: 320px; /* 放大卡片宽度 */
-    height: 380px; /* 放大卡片高度 */
+    width: 300px; /* 调整卡片宽度 */
+    height: 360px;
     left: 50%;
     top: 50%;
     transform: translate(-50%, -50%);
-    /* 实现平滑的透明度和缩放过渡 */
-    transition: opacity 0.8s ease, filter 0.8s ease; 
+    transition: transform 0.8s ease, opacity 0.8s ease, filter 0.8s ease;
 }
 
 .carousel-item img {
