@@ -401,7 +401,7 @@
             </div>
     </footer>
 
-    <!-- 商品详情弹窗 (Modal) -->
+    <!-- 1. 商品详情弹窗 (Modal) -->
     <div id="productModal" class="modal">
         <div class="modal-content">
             <span class="close-btn">&times;</span>
@@ -412,7 +412,6 @@
                     <p id="modalPrice" class="price"></p>
                     <p id="modalDesc" class="description"></p>
                     
-                    <!-- 数量选择器 (+ / -) -->
                     <div class="quantity-selector">
                         <label>Quantity:</label>
                         <button type="button" id="decreaseBtn">-</button>
@@ -421,6 +420,60 @@
                     </div>
 
                     <button type="button" class="add-to-cart-btn">Add to Cart</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 2. 右下角悬浮购物车图标 -->
+    <div id="cartIconBtn" class="floating-cart-btn" title="Open Shopping Cart">
+        🛒
+        <span id="cartCount" class="cart-badge">0</span>
+    </div>
+
+    <!-- 3. 购物车大弹窗 (Cart Modal) -->
+    <div id="cartModal" class="modal">
+        <div class="modal-content cart-modal-content">
+            <span class="close-cart-btn">&times;</span>
+            <h2>🛒 Shopping Cart</h2>
+            
+            <div class="cart-modal-body">
+                <!-- 动态生成购物车物品列表 -->
+                <div id="cartItemsContainer" class="cart-items-container">
+                    <p class="empty-cart-msg">Your cart is currently empty.</p>
+                </div>
+
+                <!-- 总结与付款区域 -->
+                <div class="cart-summary-section">
+                    <div class="cart-total">
+                        <span>Total Amount:</span>
+                        <span id="cartTotalPrice">RM 0.00</span>
+                    </div>
+
+                    <!-- 预留付款方式区域 -->
+                    <div class="payment-methods-section">
+                        <h3>Payment Method</h3>
+                        <div class="payment-options">
+                            <label class="payment-option">
+                                <input type="radio" name="payment" value="card" checked>
+                                <span>💳 Credit / Debit Card</span>
+                            </label>
+                            <label class="payment-option">
+                                <input type="radio" name="payment" value="fpx">
+                                <span>🏦 Online Banking (FPX)</span>
+                            </label>
+                            <label class="payment-option">
+                                <input type="radio" name="payment" value="ewallet">
+                                <span>📱 Touch 'n Go eWallet</span>
+                            </label>
+                            <label class="payment-option">
+                                <input type="radio" name="payment" value="cod">
+                                <span>💵 Cash on Delivery (COD)</span>
+                            </label>
+                        </div>
+                    </div>
+
+                    <button type="button" class="checkout-btn" id="checkoutBtn">Proceed to Checkout</button>
                 </div>
             </div>
         </div>
