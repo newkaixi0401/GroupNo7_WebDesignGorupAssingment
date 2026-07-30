@@ -6,20 +6,22 @@ const nextBtn = document.querySelector('.carousel-btn.next');
 let currentIndex = 0;
 
 function updateCarousel() {
-  const offset = -currentIndex * 600; // 每张图宽度
+  const offset = -currentIndex * 420; // 每张图宽度+margin
   track.style.transform = `translateX(${offset}px)`;
 }
 
-// 下一张
 nextBtn.addEventListener('click', () => {
-  currentIndex = (currentIndex + 1) % items.length;
-  updateCarousel();
+  if (currentIndex < items.length - 1) {
+    currentIndex++;
+    updateCarousel();
+  }
 });
 
-// 上一张
 prevBtn.addEventListener('click', () => {
-  currentIndex = (currentIndex - 1 + items.length) % items.length;
-  updateCarousel();
+  if (currentIndex > 0) {
+    currentIndex--;
+    updateCarousel();
+  }
 });
 
 // 自动播放（可选）
