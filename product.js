@@ -1,5 +1,8 @@
 document.addEventListener("DOMContentLoaded", () => {
-    // 1. 分类筛选功能
+    // 购物车全局数据数组
+    let cart = [];
+
+    // ==================== 1. 分类筛选功能 ====================
     const filterButtons = document.querySelectorAll(".filter-btn");
     const categorySections = document.querySelectorAll(".category-section");
 
@@ -22,9 +25,9 @@ document.addEventListener("DOMContentLoaded", () => {
         });
     });
 
-    // 2. 商品弹窗与数量选择功能
-    const modal = document.getElementById("productModal");
-    const closeBtn = document.querySelector(".close-btn");
+    // ==================== 2. 商品详情弹窗功能 ====================
+    const productModal = document.getElementById("productModal");
+    const closeProductModalBtn = document.querySelector("#productModal .close-btn");
     const productCards = document.querySelectorAll(".product-card");
 
     const modalImg = document.getElementById("modalImg");
@@ -38,43 +41,41 @@ document.addEventListener("DOMContentLoaded", () => {
     const addToCartBtn = document.querySelector(".add-to-cart-btn");
 
     let currentQuantity = 1;
+    let currentProductData = {};
 
-    // 点击任意商品卡片，获取其数据并打开弹窗
+    // 点击卡片打开详情弹窗
     productCards.forEach(card => {
         card.addEventListener("click", () => {
             const imgSrc = card.querySelector("img").getAttribute("src");
             const title = card.querySelector("h3").textContent;
-            const price = card.querySelector(".price").textContent;
+            const priceText = card.querySelector(".price").textContent;
             const desc = card.querySelector(".description").textContent;
 
-            // 填充数据到弹窗
+            // 解析纯数字价格 (RM75.99 -> 75.99)
+            const numericPrice = parseFloat(priceText.replace(/[^0-9.]/g, ''));
+
+            currentProductData = {
+                title: title,
+                price: numericPrice,
+                img: imgSrc
+            };
+
             modalImg.src = imgSrc;
             modalTitle.textContent = title;
-            modalPrice.textContent = price;
+            modalPrice.textContent = priceText;
             modalDesc.textContent = desc;
 
-            // 重置数量为 1
             currentQuantity = 1;
             quantityValue.textContent = currentQuantity;
 
-            // 显示弹窗
-            modal.style.display = "flex";
+            productModal.style.display = "flex";
         });
     });
 
-    // 点击关闭按钮关闭弹窗
-    closeBtn.addEventListener("click", () => {
-        modal.style.display = "none";
+    closeProductModalBtn.addEventListener("click", () => {
+        productModal.style.display = "none";
     });
 
-    // 点击弹窗外部阴影区域也可以关闭弹窗
-    window.addEventListener("click", (e) => {
-        if (e.target === modal) {
-            modal.style.display = "none";
-        }
-    });
-
-    // 数量减 -1
     decreaseBtn.addEventListener("click", () => {
         if (currentQuantity > 1) {
             currentQuantity--;
@@ -82,15 +83,141 @@ document.addEventListener("DOMContentLoaded", () => {
         }
     });
 
-    // 数量加 +1
     increaseBtn.addEventListener("click", () => {
         currentQuantity++;
         quantityValue.textContent = currentQuantity;
     });
 
-    // 点击 Add to Cart 按钮的反馈（可根据需要自行扩展购物车逻辑）
+    // 点击“Add to Cart”加入购物车
     addToCartBtn.addEventListener("click", () => {
-        alert(`Successfully added ${currentQuantity} of "${modalTitle.textContent}" to your cart!`);
-        modal.style.display = "none";
+        const existingItem = cart.find(item => item.title === currentProductData.title);
+
+        if (existingItem) {
+            existingItem.quantity += currentQuantity;
+        } else {
+            cart.push({
+                ...currentProductData,
+                quantity: currentQuantity
+            });
+        }
+
+        updateCartBadge();
+        productModal.style.display = "none";
+        alert(`Added ${currentQuantity} x "${currentProductData.title}" to cart!`);
+    });
+
+    // ==================== 3. 悬浮购物车 & 大弹窗逻辑 ====================
+    const cartIconBtn = document.getElementById("cartIconBtn");
+    const cartModal = document.getElementById("cartModal");
+    const closeCartBtn = document.querySelector(".close-cart-btn");
+    const cartItemsContainer = document.getElementById("cartItemsContainer");
+    const cartTotalPrice = document.getElementById("cartTotalPrice");
+    const cartCountBadge = document.getElementById("cartCount");
+    const checkoutBtn = document.getElementById("checkoutBtn");
+
+    // 打开购物车大弹窗
+    cartIconBtn.addEventListener("click", () => {
+        renderCart();
+        cartModal.style.display = "flex";
+    });
+
+    // 关闭购物车大弹窗
+    closeCartBtn.addEventListener("click", () => {
+        cartModal.style.display = "none";
+    });
+
+    // 点击背景遮罩关闭所有弹窗
+    window.addEventListener("click", (e) => {
+        if (e.target === productModal) productModal.style.display = "none";
+        if (e.target === cartModal) cartModal.style.display = "none";
+    });
+
+    // 更新右下角图标上的数量红点
+    function updateCartBadge() {
+        const totalItems = cart.reduce((sum, item) => sum + item.quantity, 0);
+        cartCountBadge.textContent = totalItems;
+    }
+
+    // 渲染购物车内部视图与价格计算
+    function renderCart() {
+        if (cart.length === 0) {
+            cartItemsContainer.innerHTML = `<p class="empty-cart-msg">Your cart is currently empty.</p>`;
+            cartTotalPrice.textContent = "RM 0.00";
+            return;
+        }
+
+        cartItemsContainer.innerHTML = "";
+        let totalSum = 0;
+
+        cart.forEach((item, index) => {
+            const itemTotal = item.price * item.quantity;
+            totalSum += itemTotal;
+
+            const itemRow = document.createElement("div");
+            itemRow.classList.add("cart-item-row");
+
+            itemRow.innerHTML = `
+                <img src="${item.img}" alt="${item.title}" class="cart-item-img">
+                <div class="cart-item-info">
+                    <div class="cart-item-title">${item.title}</div>
+                    <div class="cart-item-price">RM ${item.price.toFixed(2)}</div>
+                </div>
+                <div class="cart-item-qty-ctrl">
+                    <button class="cart-qty-minus" data-index="${index}">-</button>
+                    <span>${item.quantity}</span>
+                    <button class="cart-qty-plus" data-index="${index}">+</button>
+                </div>
+                <button class="cart-item-remove" data-index="${index}">&times;</button>
+            `;
+
+            cartItemsContainer.appendChild(itemRow);
+        });
+
+        cartTotalPrice.textContent = `RM ${totalSum.toFixed(2)}`;
+
+        // 为购物车内部的 + / - / 删除 按钮绑定事件
+        document.querySelectorAll(".cart-qty-minus").forEach(btn => {
+            btn.addEventListener("click", (e) => {
+                const idx = e.target.getAttribute("data-index");
+                if (cart[idx].quantity > 1) {
+                    cart[idx].quantity--;
+                } else {
+                    cart.splice(idx, 1);
+                }
+                updateCartBadge();
+                renderCart();
+            });
+        });
+
+        document.querySelectorAll(".cart-qty-plus").forEach(btn => {
+            btn.addEventListener("click", (e) => {
+                const idx = e.target.getAttribute("data-index");
+                cart[idx].quantity++;
+                updateCartBadge();
+                renderCart();
+            });
+        });
+
+        document.querySelectorAll(".cart-item-remove").forEach(btn => {
+            btn.addEventListener("click", (e) => {
+                const idx = e.target.getAttribute("data-index");
+                cart.splice(idx, 1);
+                updateCartBadge();
+                renderCart();
+            });
+        });
+    }
+
+    // 结算按钮点击
+    checkoutBtn.addEventListener("click", () => {
+        if (cart.length === 0) {
+            alert("Your cart is empty! Please add some products first.");
+            return;
+        }
+        const selectedPayment = document.querySelector('input[name="payment"]:checked').value;
+        alert(`Thank you for your order!\nTotal: ${cartTotalPrice.textContent}\nPayment method selected: ${selectedPayment.toUpperCase()}`);
+        cart = []; // 清空购物车
+        updateCartBadge();
+        cartModal.style.display = "none";
     });
 });
