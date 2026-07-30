@@ -103,7 +103,6 @@ document.addEventListener("DOMContentLoaded", () => {
 
         updateCartBadge();
         productModal.style.display = "none";
-        alert(`Added ${currentQuantity} x "${currentProductData.title}" to cart!`);
     });
 
     // ==================== 3. 悬浮购物车 & 大弹窗逻辑 ====================
