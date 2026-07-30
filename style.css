@@ -280,58 +280,50 @@ footer .social-links a:hover {
     margin-bottom: 1.5rem;
 }
 
+/* 放大并优化轮播区域 */
 .carousel {
-  position: relative;
-  width: 600px;
-  height: 300px;
-  margin: auto;
-  perspective: 1000px; /* 3D透视效果 */
+    position: relative;
+    width: 800px; /* 增大整体宽度 */
+    height: 420px; /* 增大整体高度 */
+    margin: 2rem auto;
+    perspective: 1200px;
+    overflow: hidden; /* 隐藏溢出部分，保证卡片整洁 */
+    cursor: grab; /* 提示用户可以拖拽 */
+    user-select: none;
+}
+
+.carousel:active {
+    cursor: grabbing;
 }
 
 .carousel-container {
-  width: 100%;
-  height: 100%;
-  position: absolute;
-  transform-style: preserve-3d;
-  transition: transform 1s;
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    transform-style: preserve-3d;
+    /* 让过渡更加平滑丝滑 */
+    transition: transform 0.8s cubic-bezier(0.25, 1, 0.5, 1); 
 }
 
+/* 调整卡片尺寸使其更大 */
 .carousel-item {
-  position: absolute;
-  width: 250px;
-  height: 200px;
-  left: 50%;
-  top: 50%;
-  transform: translate(-50%, -50%);
+    position: absolute;
+    width: 320px; /* 放大卡片宽度 */
+    height: 380px; /* 放大卡片高度 */
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    /* 实现平滑的透明度和缩放过渡 */
+    transition: opacity 0.8s ease, filter 0.8s ease; 
 }
 
 .carousel-item img {
-  width: 100%;
-  height: 100%;
-  border-radius: 10px;
-  box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 12px;
+    box-shadow: 0 8px 25px rgba(0,0,0,0.15);
 }
-
-/* 箭头按钮 */
-.prev, .next {
-  cursor: pointer;
-  position: absolute;
-  top: 50%;
-  padding: 16px;
-  color: #fff;
-  font-size: 24px;
-  font-weight: bold;
-  transition: 0.3s;
-  user-select: none;
-}
-
-.prev { left: 0; }
-.next { right: 0; }
-
-.prev:hover, .next:hover {
-  color: #ff7043;
-}
-
 
 /*Hero*/
 .hero {
