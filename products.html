@@ -401,6 +401,31 @@
             </div>
     </footer>
 
+    <!-- 商品详情弹窗 (Modal) -->
+    <div id="productModal" class="modal">
+        <div class="modal-content">
+            <span class="close-btn">&times;</span>
+            <div class="modal-body">
+                <img id="modalImg" src="" alt="Product Image">
+                <div class="modal-info">
+                    <h2 id="modalTitle"></h2>
+                    <p id="modalPrice" class="price"></p>
+                    <p id="modalDesc" class="description"></p>
+                    
+                    <!-- 数量选择器 (+ / -) -->
+                    <div class="quantity-selector">
+                        <label>Quantity:</label>
+                        <button type="button" id="decreaseBtn">-</button>
+                        <span id="quantityValue">1</span>
+                        <button type="button" id="increaseBtn">+</button>
+                    </div>
+
+                    <button type="button" class="add-to-cart-btn">Add to Cart</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    
     <script src="product.js"></script>
 </body>
 </html>
