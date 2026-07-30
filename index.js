@@ -3,28 +3,47 @@ const items = document.querySelectorAll('.carousel-item');
 const prevBtn = document.querySelector('.carousel-btn.prev');
 const nextBtn = document.querySelector('.carousel-btn.next');
 
-let currentIndex = 0;
-const itemWidth = 420; // 每张图宽度+margin
+const itemWidth = 600;
+let currentIndex = 1; // 从克隆的第一张开始
 
+// 克隆首尾
+const firstClone = items[0].cloneNode(true);
+const lastClone = items[items.length - 1].cloneNode(true);
+
+track.appendChild(firstClone);
+track.insertBefore(lastClone, items[0]);
+
+const allItems = document.querySelectorAll('.carousel-item');
+track.style.transform = `translateX(${-itemWidth * currentIndex}px)`;
+
+// 更新轮播
 function updateCarousel() {
-  const offset = -currentIndex * itemWidth;
-  track.style.transform = `translateX(${offset}px)`;
+  track.style.transition = "transform 0.5s ease";
+  track.style.transform = `translateX(${-itemWidth * currentIndex}px)`;
 }
 
 // 下一张
 nextBtn.addEventListener('click', () => {
-  currentIndex = (currentIndex + 1) % items.length; // 无限循环
+  currentIndex++;
   updateCarousel();
 });
 
 // 上一张
 prevBtn.addEventListener('click', () => {
-  currentIndex = (currentIndex - 1 + items.length) % items.length; // 无限循环
+  currentIndex--;
   updateCarousel();
 });
 
-// 自动播放（可选）
-setInterval(() => {
-  currentIndex = (currentIndex + 1) % items.length;
-  updateCarousel();
-}, 5000);
+// 监听过渡结束，处理无限循环
+track.addEventListener('transitionend', () => {
+  if (allItems[currentIndex].innerHTML === firstClone.innerHTML) {
+    track.style.transition = "none";
+    currentIndex = 1;
+    track.style.transform = `translateX(${-itemWidth * currentIndex}px)`;
+  }
+  if (allItems[currentIndex].innerHTML === lastClone.innerHTML) {
+    track.style.transition = "none";
+    currentIndex = allItems.length - 2;
+    track.style.transform = `translateX(${-itemWidth * currentIndex}px)`;
+  }
+});
