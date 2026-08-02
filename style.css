@@ -6,7 +6,7 @@
 
 body {
     font-family: Arial, Helvetica, sans-serif;
-    background-color: #f9f9f9;
+    background-color: #f4f6f8;
     color: #333;
     line-height: 1.6;
 }
@@ -16,8 +16,8 @@ header {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 15px 40px;
-    border-bottom: 2px solid #e0e0e0;
+    padding: 15px 50px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.08);
 }
 
 header h1 {
@@ -41,7 +41,7 @@ nav a {
     color: #555;
     font-weight: bold;
     font-size: 1rem;
-    padding: 5px 10px;
+    padding: 6px 12px;
     border-radius: 4px;
     transition: 0.2s;
 }
@@ -53,67 +53,94 @@ nav a:hover, nav a.active {
 
 main {
     max-width: 1100px;
-    margin: 30px auto;
+    margin: 35px auto;
     padding: 0 20px;
 }
 
+.home-page {
+    display: flex;
+    flex-direction: column;
+    gap: 40px;
+}
+
 .hero-banner {
-    background-color: #eaf2ed;
-    padding: 50px;
+    background-color: #ffffff;
+    border: 1px solid #e0e0e0;
+    border-top: 5px solid #4a7c59;
+    padding: 60px 30px;
     text-align: center;
     border-radius: 8px;
-    margin-bottom: 30px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
 }
 
 .hero-banner h2 {
     color: #2c3e50;
-    font-size: 2rem;
-    margin-bottom: 10px;
+    font-size: 2.2rem;
+    margin-bottom: 15px;
 }
 
 .hero-banner p {
-    font-size: 1.1rem;
-    color: #555;
-    margin-bottom: 20px;
+    font-size: 1.15rem;
+    color: #666;
+    max-width: 700px;
+    margin: 0 auto 25px auto;
 }
 
 .hero-btn {
     display: inline-block;
-    padding: 10px 25px;
+    padding: 12px 30px;
     background-color: #4a7c59;
     color: #ffffff;
     text-decoration: none;
     font-weight: bold;
-    border-radius: 4px;
+    font-size: 1.05rem;
+    border-radius: 25px;
+    transition: background-color 0.3s, transform 0.2s;
+    box-shadow: 0 3px 6px rgba(74, 124, 89, 0.3);
 }
 
 .hero-btn:hover {
     background-color: #386144;
+    transform: translateY(-2px);
 }
 
 .features-section h2 {
     text-align: center;
     color: #2c3e50;
-    margin-bottom: 20px;
+    font-size: 1.6rem;
+    margin-bottom: 25px;
 }
 
 .features-grid {
     display: flex;
-    gap: 20px;
+    gap: 25px;
 }
 
 .feature-card {
     flex: 1;
     background-color: #ffffff;
-    padding: 20px;
-    border: 1px solid #e2e2e2;
-    border-radius: 6px;
+    padding: 30px 20px;
+    border: 1px solid #e0e0e0;
+    border-radius: 8px;
     text-align: center;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+    transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.feature-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.1);
 }
 
 .feature-card h3 {
     color: #4a7c59;
-    margin-bottom: 10px;
+    font-size: 1.25rem;
+    margin-bottom: 12px;
+}
+
+.feature-card p {
+    color: #666;
+    font-size: 0.95rem;
 }
 
 .products-page h1, .contact-page h1 {
@@ -174,7 +201,7 @@ main {
 
 .product-card:hover {
     transform: translateY(-5px);
-    box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
 }
 
 .product-card img {
@@ -311,7 +338,7 @@ main {
     align-items: center;
     font-size: 1.6rem;
     cursor: pointer;
-    box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
 }
 
 .cart-badge {
@@ -451,6 +478,7 @@ main {
     padding: 30px;
     border-radius: 8px;
     border: 1px solid #e2e2e2;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
 }
 
 .contact-info {
@@ -489,7 +517,7 @@ main {
 
 .form-group input, .form-group textarea {
     width: 100%;
-    padding: 8px 12px;
+    padding: 10px 12px;
     border: 1px solid #ccc;
     border-radius: 4px;
     font-size: 0.95rem;
@@ -509,6 +537,7 @@ main {
     font-size: 1rem;
     font-weight: bold;
     cursor: pointer;
+    transition: background-color 0.2s;
 }
 
 .submit-btn:hover {
@@ -519,12 +548,12 @@ footer {
     background-color: #2c3e50;
     color: #ffffff;
     text-align: center;
-    padding: 20px;
-    margin-top: 40px;
+    padding: 25px 20px;
+    margin-top: 50px;
 }
 
 .social-links {
-    margin-top: 10px;
+    margin-top: 12px;
     display: flex;
     justify-content: center;
     gap: 15px;
@@ -538,11 +567,20 @@ footer {
 @media (max-width: 768px) {
     header {
         flex-direction: column;
-        gap: 10px;
+        gap: 12px;
+        padding: 15px 20px;
     }
 
     .features-grid {
         flex-direction: column;
+    }
+
+    .hero-banner {
+        padding: 40px 20px;
+    }
+
+    .hero-banner h2 {
+        font-size: 1.7rem;
     }
 
     .modal-body {
