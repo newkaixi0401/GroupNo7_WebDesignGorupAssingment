@@ -1,42 +1,87 @@
 <!DOCTYPE html>
-<html>
-    <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <link rel="icon" type="image/png" href="images/icon.png">
-        <title>Paws & Claws</title>
-        <link rel="stylesheet" href="style.css">
-    </head>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" type="image/png" href="images/icon.png">
+    <title>Pet Shop Online - Contact Us</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
 
-    <body>
-        <header>
-            <h1>Paws & Claws</h1>
-            <div class="logo">
-                <a href="index.html">
-                    <img src="images/icon.png" alt="Paws & Claws Logo">
-                </a>
+    <header>
+        <h1>Paws & Claws</h1>
+        <div class="logo">
+            <a href="index.html">
+                <img src="images/icon.png" alt="Paws & Claws Logo">
+            </a>
+        </div>
+        <nav>
+            <ul>
+                <li><a href="index.html">Home</a></li>
+                <li><a href="products.html">Products</a></li>
+                <li><a href="contact.html" class="active">Contact</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main class="contact-page">
+        <h1>Contact Us</h1>
+        <p class="contact-intro">Feel free to reach out to us for any inquiries about our pet products or store info!</p>
+
+        <div class="contact-wrapper">
+            <div class="contact-info">
+                <h2>Our Store</h2>
+                <p><strong>Address:</strong> Jalan Royal, 41000 Klang, Selangor, Malaysia</p>
+                <p><strong>Phone:</strong> +60 3-3341 8899</p>
+                <p><strong>Email:</strong> contact@pawsandclaws.com</p>
+
+                <h3>Opening Hours</h3>
+                <p>Monday - Friday: 9:00 AM - 8:00 PM</p>
+                <p>Saturday - Sunday: 10:00 AM - 6:00 PM</p>
             </div>
-            <nav>
-                <ul>
-                  <li><a href="index.html">Home</a></li>
-                  <li><a href="products.html">Products</a></li>
-                  <li><a href="contact.html" class="active">Contact</a></li>
-                </ul>
-            </nav>
-        </header>
 
+            <div class="contact-form-box">
+                <h2>Send a Message</h2>
+                <form class="contact-form">
+                    <div class="form-group">
+                        <label for="username">Your Name</label>
+                        <input type="text" id="username" name="username" placeholder="Enter your name" required>
+                    </div>
 
-      
-        <footer>
-            <p>© 2026 Paws & Claws | Address: Klang, Selangor</p>
-            <div class="social-links">
-                <a href="https://instagram.com/PetShopOnline" target="_blank">
-                    <img src="images/instagram.png" alt="Instagram" class="social-icon">
-                </a>
-                <a href="https://facebook.com/PetShopOnline" target="_blank">
-                  <img src="images/facebook.png" alt="Facebook" class="social-icon">
-                </a>
+                    <div class="form-group">
+                        <label for="useremail">Email Address</label>
+                        <input type="email" id="useremail" name="useremail" placeholder="Enter your email" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="subject">Subject</label>
+                        <input type="text" id="subject" name="subject" placeholder="Subject" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="message">Message</label>
+                        <textarea id="message" name="message" rows="5" placeholder="Write your message..." required></textarea>
+                    </div>
+
+                    <button type="submit" class="submit-btn">Send Message</button>
+                </form>
             </div>
-        </footer>
-    </body>
+        </div>
+    </main>
+
+    <footer>
+        <p>© 2026 Paws & Claws | Address: Klang, Selangor</p>
+        <div class="social-links">
+            <a href="https://instagram.com/PetShopOnline" target="_blank">
+                <img src="images/instagram.png" alt="Instagram" class="social-icon">
+            </a>
+            <a href="https://facebook.com/PetShopOnline" target="_blank">
+                <img src="images/facebook.png" alt="Facebook" class="social-icon">
+            </a>
+        </div>
+    </footer>
+
+    <script src="contact.js"></script>
+</body>
 </html>
