@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="icon" type="image/png" href="images/icon.png">
-    <title>Pet Shop Online - Contact Us</title>
+    <title>Paws & Claws</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
@@ -27,46 +27,64 @@
 
     <main class="contact-page">
         <h1>Contact Us</h1>
-        <p class="contact-intro">Feel free to reach out to us for any inquiries about our pet products or store info!</p>
 
-        <div class="contact-wrapper">
-            <div class="contact-info">
-                <h2>Our Store</h2>
-                <p><strong>Address:</strong> Jalan Royal, 41000 Klang, Selangor, Malaysia</p>
-                <p><strong>Phone:</strong> +60 3-3341 8899</p>
-                <p><strong>Email:</strong> contact@pawsandclaws.com</p>
+        <div class="contact-container">
+            <section class="contact-form-section">
+                <h2>Send Us a Message</h2>
 
-                <h3>Opening Hours</h3>
-                <p>Monday - Friday: 9:00 AM - 8:00 PM</p>
-                <p>Saturday - Sunday: 10:00 AM - 6:00 PM</p>
-            </div>
+                <div id="successMessage" class="success-message">
+                    Thank you! We'll contact you soon.
+                </div>
 
-            <div class="contact-form-box">
-                <h2>Send a Message</h2>
-                <form class="contact-form">
+                <form id="contactForm" novalidate>
                     <div class="form-group">
-                        <label for="username">Your Name</label>
-                        <input type="text" id="username" name="username" placeholder="Enter your name" required>
+                        <label for="name">Full Name</label>
+                        <input type="text" id="name" placeholder="Your Full Name">
+                        <span class="error-msg" id="nameError"></span>
                     </div>
 
                     <div class="form-group">
-                        <label for="useremail">Email Address</label>
-                        <input type="email" id="useremail" name="useremail" placeholder="Enter your email" required>
+                        <label for="email">Email Address</label>
+                        <input type="email" id="email" placeholder="example@email.com">
+                        <span class="error-msg" id="emailError"></span>
                     </div>
 
                     <div class="form-group">
-                        <label for="subject">Subject</label>
-                        <input type="text" id="subject" name="subject" placeholder="Subject" required>
+                        <label for="phone">Phone Number</label>
+                        <input type="text" id="phone" placeholder="+60 12-345 6789">
+                        <span class="error-msg" id="phoneError"></span>
                     </div>
 
                     <div class="form-group">
                         <label for="message">Message</label>
-                        <textarea id="message" name="message" rows="5" placeholder="Write your message..." required></textarea>
+                        <textarea id="message" rows="5" placeholder="Type your message here..."></textarea>
+                        <span class="error-msg" id="messageError"></span>
                     </div>
 
                     <button type="submit" class="submit-btn">Send Message</button>
                 </form>
-            </div>
+            </section>
+
+            <section class="contact-info-section">
+                <h2>Our Store Information</h2>
+                <div class="info-details">
+                    <p><strong>Address:</strong> Klang, Selangor, Malaysia</p>
+                    <p><strong>Phone:</strong> +60 12-345 6789</p>
+                    <p><strong>Email:</strong> support@pawsandclaws.com</p>
+                    <p><strong>Operating Hours:</strong> Mon - Sun: 9:00 AM - 8:00 PM</p>
+                </div>
+
+                <div class="map-container">
+                    <iframe 
+                        src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d127482.43407021118!2d101.37890632688756!3d3.033333333333333!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x31cc0013b0a941a3%3A0x633513a968748386!2sKlang%2C%20Selangor!5e0!3m2!1sen!2smy!4v1700000000000!5m2!1sen!2smy" 
+                        width="100%" 
+                        height="240" 
+                        style="border:0;" 
+                        allowfullscreen="" 
+                        loading="lazy">
+                    </iframe>
+                </div>
+            </section>
         </div>
     </main>
 
