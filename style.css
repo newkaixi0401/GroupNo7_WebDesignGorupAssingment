@@ -294,7 +294,7 @@ footer .social-links a:hover {
 }
 
 .carousel-item {
-  min-width: 600px; /* 每张图宽度 */
+  min-width: 300px; /* 每张图宽度 */
   transition: transform 0.5s ease;
 }
 
