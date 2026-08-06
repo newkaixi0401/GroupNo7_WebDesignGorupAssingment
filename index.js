@@ -6,7 +6,7 @@ const nextBtn = document.querySelector('.carousel-btn.next');
 let currentIndex = 0;
 
 function updateCarousel() {
-  const offset = -currentIndex * 600; // 每张图宽度
+  const offset = -currentIndex * 400; // 每张图宽度
   track.style.transform = `translateX(${offset}px)`;
 }
 
